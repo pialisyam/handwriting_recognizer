@@ -1,5 +1,7 @@
 % ----------------------------------   @psyam ---------------------------------------%
-%---------------------only the best model of radial basis function network is used to test the test data-------%
+%---------------------only the best model of radial basis function network is used here to test the test data-------%
+
+
 
 function project()
 prompt = 'Enter: 1 (for Testing) or 2 (for Traning and Testing)';
@@ -7,7 +9,7 @@ result = input(prompt);
 if result==2
     h=load ('handwriting.data'); % copy and paste the 'TEST' file name and extension to be tested here
     e=h(1:1000,:);
-    [weights,Centroids]=trainingdata(h((e+1:end),:));
+    [weights,Centroids]= trainingdata_radial_model(h((e+1:end),:));
 end 
     
     if result==1
