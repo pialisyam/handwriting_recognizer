@@ -1,5 +1,5 @@
 %---------------------------------@psyam----------------------------------------%
-%--------------------------
+%-------------------------- improved model of Radial Basis function network with Gaussian kernels is implemented-------------%
 
 
 
@@ -33,7 +33,7 @@ fprintf(fileID,'%6s %12s\n\n\n\t\t\t\t\t','ActualData','Classlabels');
             xTestDatanew=TestDatanew(:,2:end);
             CC=10;
             num11=size(TrainData,1);
-            [K,Centroids]=svm_kernel_trainer(x_traindata); % creating gaussian kernels with train data
+            [K,Centroids]= radialfunc_kernel_trainer(x_traindata); % creating gaussian kernels with train data
             %training data of this fold 
             %model = cell(26,1);
             for mulclass=0:25         % creating 26 classifiers (a-z letters)
