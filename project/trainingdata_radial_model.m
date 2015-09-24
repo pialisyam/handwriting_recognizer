@@ -1,9 +1,9 @@
 %---------------------------------@psyam----------------------------------------%
-%-------------------------- improved model of Radial Basis function network with Gaussian kernels is implemented-------------%
+%-------------------------- Improved model of Radial Basis function network with Gaussian kernels is implemented-------------%
 
 
 
-function [weights,Centroids]=trainingdata(handwritingData)
+function [weights,Centroids]=trainingdata_radial_model(handwritingData)
 addpath('C:\Users\munai\Desktop\UCR class files\Fall 14 courses\machine learning\assignments');
 %handwritingData=load ('handwriting.data');
 %classified=0;
@@ -33,7 +33,9 @@ fprintf(fileID,'%6s %12s\n\n\n\t\t\t\t\t','ActualData','Classlabels');
             xTestDatanew=TestDatanew(:,2:end);
             CC=10;
             num11=size(TrainData,1);
+            
             [K,Centroids]= radialfunc_kernel_trainer(x_traindata); % creating gaussian kernels with train data
+            
             %training data of this fold 
             %model = cell(26,1);
             for mulclass=0:25         % creating 26 classifiers (a-z letters)
@@ -44,63 +46,10 @@ fprintf(fileID,'%6s %12s\n\n\n\t\t\t\t\t','ActualData','Classlabels');
                         y_val(q,1)=0;
                     end    
                 end
-                %training the data for this class
-%                 w(1:130,mulclass+1) = zeros(size(x_traindata,2),1);
-%                 m=0;
-%                 while(true)
-%                     oldw = w(1:130,mulclass+1);
-%                     p = exp (x_traindata*w(1:130,mulclass+1)) ;
-%                     p = p./( 1+p ) ;
-%                     q =(p.*(1-p )) ;
-%                     for g=1:size(x_traindata,1)
-%                         for h=1:size(x_traindata,2)
-%                             U(g,h) = q(g,1).*(x_traindata(g,h));
-%                         end
-%                     end
-%                     %z = x_traindata*w(1:130,mulclass+1) + U\( y_val-p ) ;
-%                     %w(1:130,mulclass+1) = (x_traindata' * U * x_traindata)\(x_traindata' * U * z ) ;
-%                     w(1:130,mulclass+1) = w(1:130,mulclass+1)+(x_traindata' * U)\(x_traindata' * ( y_val-p )) ;
-%                     if (sum((oldw-w(1:130,mulclass+1)).*(oldw-w(1:130,mulclass+1)))<1e-2) | m>30
-%                         break ;
-%                     end 
-%                     m=m+1;
-%                 end
-
-
-%----------------------------------------radial basis function network method----------------------%
+                
+                %training the data for each class
                 weights(:,mulclass+1)=  pinv(K)*y_val; 
             end
-
-            
-            %tesing with whole training part of fold
-            
-%             for lll=1:size(x_traindata,1)
-% %                 for ll=1:size(w,2)
-% %                     pp=  (xTrainDatanew(lll,:)*w(:,ll)) ;
-% %                     fxx(1,ll)= 1/(1+ exp(-pp));
-% %                 end 
-% 
-%                 for ll=1:size(weights,2)
-%                     %fxx(1,ll)=K' *alpha(:,ll) + b(1,ll);
-%                     fxx(1,ll)= (K(lll,:) * weights(:,ll));
-%                 end 
-% 
-%                [B,I] = sort(fxx,'descend');
-%                   clslabell = I(1,1);
-%                   clslabell= clslabell - 1; %as 1 has been added to the class labels during matrix creation so now getting actual label by subtracting that 1
-%                    if clslabell == TrainData(lll,1)
-%                      classifiedtrain=classifiedtrain+1;
-% %                    else
-% %                      kk=kk+1;  
-% %                      %predictlabtrain(1:130,kk)= w(:,I(1,1));
-% %                      actuallabtrain(1,kk)= TrainData(lll,1);
-% %                      aaa(1,kk)= clslabell;
-%                    end
-%             end
-%             A = [TrainData(:,1); C];
-%             fprintf(fileID,'%6s\n\n\n\t\t\t\t\t','--------------------------Training part misclassifications--------------------------------------------');
-%             fprintf(fileID,'%6.2f %12.8f\n\n\n\n\t\t',A);
-            
             
             %-------------------------------------tesing with testing---- part of fold
             
@@ -114,10 +63,6 @@ fprintf(fileID,'%6s %12s\n\n\n\t\t\t\t\t','ActualData','Classlabels');
             r=size(Ktest,1)
             classified=0;
             for l=1:size(xTestDatanew,1)
-%                 for ll=1:size(w,2)
-%                     pp=  (xTestDatanew(l,:)*w(:,ll)) ;
-%                     fx(1,ll)= 1/(1+ exp(-pp));
-%                 end 
 
                 for ll=1:size(weights,2)
                     fx(1,ll)= (Ktest(l,:) * weights(:,ll));
