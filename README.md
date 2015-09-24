@@ -1,7 +1,15 @@
 # handwriting_recognizer
+% Name: PIALI SYAM
+% Date: 12/16/14
+% CS 229 - Final Project
+
+
 
 Installations: Only Matlab tool needed ( no library methods used).
 No other packages used.
+
+
+
 
 
 Steps to run and test the given test samples:
