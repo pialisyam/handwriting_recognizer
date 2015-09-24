@@ -29,7 +29,9 @@ Steps to run and test the given test samples:
 
 
 Example:
-Note: I assumed 'TEST.data' name for final test data to check my model.
+Note: I assumed 'TEST.data' name as the name for any sample test data to check my model.
+
+
 
 1> Pasting 'TEST.data' in 'project' folder.
 2> In 'project.m', copy and pasting the name- 'TEST.data' at line numbers:  5 and 17                     
